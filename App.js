@@ -146,12 +146,14 @@ function JoinScreen(props) {
         backgroundColor: '#F6F6FF',
         justifyContent: 'center',
         paddingHorizontal: 6 * 10,
-      }}>
+      }}
+    >
       <TouchableOpacity
         onPress={() => {
           props.getMeetingId();
         }}
-        style={{backgroundColor: '#1178F8', padding: 12, borderRadius: 6}}>
+        style={{backgroundColor: '#1178F8', padding: 12, borderRadius: 6}}
+      >
         <Text style={{color: 'white', alignSelf: 'center', fontSize: 18}}>
           Create Meeting
         </Text>
@@ -164,7 +166,8 @@ function JoinScreen(props) {
           marginVertical: 16,
           fontStyle: 'italic',
           color: 'grey',
-        }}>
+        }}
+      >
         ---------- OR ----------
       </Text>
       <TextInput
@@ -187,7 +190,8 @@ function JoinScreen(props) {
         }}
         onPress={() => {
           props.getMeetingId(meetingVal);
-        }}>
+        }}
+      >
         <Text style={{color: 'white', alignSelf: 'center', fontSize: 18}}>
           Join Meeting
         </Text>
@@ -208,7 +212,8 @@ const Button = ({onPress, buttonText, backgroundColor}) => {
         alignItems: 'center',
         padding: 12,
         borderRadius: 4,
-      }}>
+      }}
+    >
       <Text style={{color: 'white', fontSize: 12}}>{buttonText}</Text>
     </TouchableOpacity>
   );
@@ -219,7 +224,7 @@ function ControlsContainer({
   leave,
   toggleWebcam,
   toggleMic,
-  disposeVideoTrack,
+  //   disposeVideoTrack,
 }) {
   return (
     <View
@@ -227,11 +232,12 @@ function ControlsContainer({
         padding: 24,
         flexDirection: 'row',
         justifyContent: 'space-between',
-      }}>
+      }}
+    >
       <Button
         onPress={() => {
           join();
-          disposeVideoTrack();
+          //   disposeVideoTrack();
         }}
         buttonText={'Join'}
         backgroundColor={'#1178F8'}
@@ -285,7 +291,8 @@ function ParticipantView({participantId}) {
         height: 300,
         justifyContent: 'center',
         alignItems: 'center',
-      }}>
+      }}
+    >
       <Text style={{fontSize: 16}}>NO MEDIA</Text>
     </View>
   );
@@ -310,7 +317,8 @@ function ParticipantList({participants}) {
         backgroundColor: '#F6F6FF',
         justifyContent: 'center',
         alignItems: 'center',
-      }}>
+      }}
+    >
       <Text style={{fontSize: 20}}>Press Join button to enter meeting.</Text>
     </View>
   );
@@ -340,15 +348,15 @@ function ParticipantList({participants}) {
 // }
 
 function MeetingView() {
-  const [tracks, setTrack] = useState('');
-  const disposeVideoTrack = () => {
-    setTrack(stream => {
-      stream.getTracks().forEach(track => {
-        track.enabled = false;
-        return track;
-      });
-    });
-  };
+  //   const [tracks, setTrack] = useState('');
+  //   const disposeVideoTrack = () => {
+  //     setTrack(stream => {
+  //       stream.getTracks().forEach(track => {
+  //         track.enabled = false;
+  //         return track;
+  //       });
+  //     });
+  //   };
   // Get `participants` from useMeeting Hook
   const {join, leave, toggleWebcam, toggleMic, participants} = useMeeting({});
   const participantsArrId = [...participants.keys()];
@@ -358,22 +366,24 @@ function MeetingView() {
     <View style={{flex: 1}}>
       <ParticipantList participants={participantsArrId} />
       {/* Video Cam Portion Start */}
-      <View
+      {/* <View
         style={{
           flex: 1,
           borderRadius: 12,
           overflow: 'hidden',
-        }}>
+        }}
+      >
         {videoOn && tracks ? (
-          <RTCView
-            streamURL={tracks.toURL()}
-            objectFit={'cover'}
-            mirror={true}
-            style={{
-              flex: 1,
-              borderRadius: 20,
-            }}
-          />
+          //   <RTCView
+          //     streamURL={tracks.toURL()}
+          //     objectFit={'cover'}
+          //     mirror={true}
+          //     style={{
+          //       flex: 1,
+          //       borderRadius: 20,
+          //     }}
+          //   />
+          <Text>Hey</Text>
         ) : (
           <View
             style={{
@@ -381,18 +391,19 @@ function MeetingView() {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: '#202427',
-            }}>
+            }}
+          >
             <Text style={{color: colors.primary[100]}}>Camera Off</Text>
           </View>
         )}
-      </View>
+      </View> */}
       {/* Video Cam Portion End */}
       <ControlsContainer
         join={join}
         leave={leave}
         toggleWebcam={toggleWebcam}
         toggleMic={toggleMic}
-        disposeVideoTrack={disposeVideoTrack}
+        // disposeVideoTrack={disposeVideoTrack}
       />
     </View>
   );
@@ -418,7 +429,8 @@ export default function App() {
           name: 'Test User',
           multiStream: true,
         }}
-        token={token}>
+        token={token}
+      >
         <MeetingView />
       </MeetingProvider>
     </SafeAreaView>
